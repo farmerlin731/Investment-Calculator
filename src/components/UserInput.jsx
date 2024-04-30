@@ -1,46 +1,58 @@
 export default function UserInput({ userInput, setUserInput }) {
-  function handleInputChanged(e, label) {
-    setUserInput({
-      ...userInput,
-      [label]: parseInt(e.target.value),
-    });
+  function handleInputChanged(newValue, label) {
+    setUserInput((preStatus) => ({
+      ...preStatus,
+      [label]: parseInt(newValue),
+    }));
   }
   return (
-    <div id="user-input">
-      <ul className="input-group">
-        <li>
+    <section id="user-input">
+      <div className="input-group">
+        <p>
           <label htmlFor="">initial investment</label>
           <input
             type="number"
             value={userInput.initialInvestment}
-            onChange={(e) => handleInputChanged(e, "initialInvestment")}
+            onChange={(e) =>
+              handleInputChanged(e.target.value, "initialInvestment")
+            }
+            required
           />
-        </li>
-        <li>
+        </p>
+        <p>
           <label htmlFor="">annual investment</label>
           <input
             type="number"
             value={userInput.annualInvestment}
-            onChange={(e) => handleInputChanged(e, "annualInvestment")}
+            onChange={(e) =>
+              handleInputChanged(e.target.value, "annualInvestment")
+            }
+            required
           />
-        </li>
-        <li>
+        </p>
+      </div>
+      <div className="input-group">
+        <p>
           <label htmlFor="">expected return</label>
           <input
             type="number"
             value={userInput.expectedReturn}
-            onChange={(e) => handleInputChanged(e, "expectedReturn")}
+            onChange={(e) =>
+              handleInputChanged(e.target.value, "expectedReturn")
+            }
+            required
           />
-        </li>
-        <li>
+        </p>
+        <p>
           <label htmlFor="">duration</label>
           <input
             type="number"
             value={userInput.duration}
-            onChange={(e) => handleInputChanged(e, "duration")}
+            onChange={(e) => handleInputChanged(e.target.value, "duration")}
+            required
           />
-        </li>
-      </ul>
-    </div>
+        </p>
+      </div>
+    </section>
   );
 }

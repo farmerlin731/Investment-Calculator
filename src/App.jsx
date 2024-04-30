@@ -8,12 +8,18 @@ const initInput = {
   expectedReturn: 5.5,
   duration: 12,
 };
+
 function App() {
   const [userInput, setUserInput] = useState(initInput);
+  const isInputValid = userInput.duration >= 1;
   return (
     <>
       <UserInput {...{ userInput, setUserInput }} />
-      <ResultTable {...{ userInput }} />
+      {isInputValid ? (
+        <ResultTable {...{ userInput }} />
+      ) : (
+        <p className="center"> The duration should be greater than zero! </p>
+      )}
     </>
   );
 }

@@ -1,4 +1,4 @@
-import { calculateInvestmentResults } from "../util/investment";
+import { calculateInvestmentResults, formatter } from "../util/investment.js";
 
 export default function ResultTable({ userInput }) {
   const tableData = calculateInvestmentResults(userInput);
@@ -17,18 +17,22 @@ export default function ResultTable({ userInput }) {
         </tr>
       </thead>
       <tbody>
-        {tableData.map((singleYear) => (
-          <tr key={singleYear.year}>
-            <td>{singleYear.year}</td>
-            <td>{singleYear.valueEndOfYear}</td>
-            <td>{singleYear.interest}</td>
-            <td>{singleYear.interest}</td>
-            <td>
-              {singleYear.annualInvestment * singleYear.year +
-                userInput.initialInvestment}
-            </td>
-          </tr>
-        ))}
+        {tableData.map((singleYear) => {
+          // u can make simple calculation here
+          let InvestedCaptital =
+            singleYear.annualInvestment * singleYear.year +
+            userInput.initialInvestment;
+          let totalInterest = singleYear.valueEndOfYear - InvestedCaptital;
+          return (
+            <tr key={singleYear.year}>
+              <td>{singleYear.year}</td>
+              <td>{formatter.format(singleYear.valueEndOfYear)}</td>
+              <td>{formatter.format(singleYear.interest)}</td>
+              <td>{formatter.format(totalInterest)}</td>
+              <td>{InvestedCaptital}</td>
+            </tr>
+          );
+        })}
       </tbody>
     </table>
   );
